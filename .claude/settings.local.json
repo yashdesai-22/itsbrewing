@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth:*)",
+      "Skill(claude-api)",
+      "Bash(git:*)",
+      "Read(//usr/**)",
+      "Read(//mingw64/**)"
+    ]
+  }
+}
