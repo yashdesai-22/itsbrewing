@@ -8,8 +8,7 @@ load_dotenv()
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="ItsBrewingNews",
-    page_icon="🇮🇳",
+    page_title="ItsBrewing",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -51,7 +50,7 @@ st.markdown(
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("# 🍵 ItsBrewingNews")
+    st.markdown("# 🍵 Daily News")
     st.caption("AI-powered India news digest")
     st.divider()
 
@@ -74,10 +73,10 @@ with st.sidebar:
     st.divider()
     st.caption("📡 **Sources**")
 
-    st.caption("BBC · Reuters · NDTV · Times of India · Al Jazeera · The Hindu · Economic Times")
+    st.caption("BBC · Reuters · Times of India · Al Jazeera · The Hindu · Economic Times")
 
 # ── Header ────────────────────────────────────────────────────────────────────
-st.markdown("# 🇮🇳 ItsBrewingNews")
+st.markdown("# ItsBrewing Daily News")
 st.markdown("*Global news filtered for India — summarized by AI in real time.*")
 st.divider()
 
@@ -96,11 +95,11 @@ if not articles:
 
 # ── Stats row ─────────────────────────────────────────────────────────────────
 sources = sorted({a.source for a in articles})
-c1, c2, c3 = st.columns(3)
-c1.metric("📰 Articles Found", len(articles))
-c2.metric("📡 News Sources", len(sources))
-c3.metric("⏱️ Cache Duration", "15 min")
-st.divider()
+# c1, c2, c3 = st.columns(3)
+# c1.metric("📰 Articles Found", len(articles))
+# c2.metric("📡 News Sources", len(sources))
+# c3.metric("⏱️ Cache Duration", "15 min")
+# st.divider()
 
 # ── AI Daily Digest ───────────────────────────────────────────────────────────
 if api_key:
@@ -178,7 +177,6 @@ for i, article in enumerate(filtered):
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.divider()
 st.caption(
-    "🤖 Summaries by **Claude claude-opus-4-6** (Anthropic) · "
     "📡 News from BBC, Reuters, NDTV, TOI, Al Jazeera, The Hindu, ET · "
     "🔄 Auto-refresh every 15 min"
 )
