@@ -64,15 +64,16 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
-    api_key = os.getenv("ANTHROPIC_API_KEY")
+    api_key = os.getenv("GROQ_API_KEY")
     if api_key:
-        st.success("🤖 Claude AI: Connected")
+        st.success("🤖 Groq AI: Connected")
     else:
-        st.error("⚠️ ANTHROPIC_API_KEY not set")
-        st.code("# Add to .env file:\nANTHROPIC_API_KEY=sk-ant-...")
+        st.error("⚠️ GROQ_API_KEY not set")
+        st.code("# Add to .env file:\nGROQ_API_KEY=gsk_...")
 
     st.divider()
     st.caption("📡 **Sources**")
+
     st.caption("BBC · Reuters · NDTV · Times of India · Al Jazeera · The Hindu · Economic Times")
 
 # ── Header ────────────────────────────────────────────────────────────────────
@@ -154,7 +155,7 @@ for i, article in enumerate(filtered):
         with col_ai:
             if not api_key:
                 st.button("🤖 AI Summary", key=f"btn_{i}", disabled=True, use_container_width=True,
-                          help="Set ANTHROPIC_API_KEY in .env to enable")
+                          help="Set GROQ_API_KEY in .env to enable")
             elif summary_key not in st.session_state:
                 if st.button("🤖 AI Summary", key=f"btn_{i}", use_container_width=True):
                     st.markdown('<span class="ai-badge">AI ANALYSIS</span>', unsafe_allow_html=True)

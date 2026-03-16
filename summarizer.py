@@ -1,8 +1,12 @@
 from typing import Generator
-import anthropic
+import os
+from dotenv import load_dotenv
+from groq import Groq
 from news_fetcher import Article
 
-client = anthropic.Anthropic()
+load_dotenv()
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+MODEL = "llama-3.3-70b-versatile"
 
 
 def stream_summary(article: Article) -> Generator[str, None, None]:
@@ -30,13 +34,14 @@ Title: {article.title}
 Source: {article.source}
 Content: {article.description}"""
 
-    with client.messages.stream(
-        model="claude-opus-4-6",
+    stream = client.chat.completions.create(
+        model=MODEL,
         max_tokens=350,
         messages=[{"role": "user", "content": prompt}],
-    ) as stream:
-        for text in stream.text_stream:
-            yield text
+        stream=True,
+    )
+    for chunk in stream:
+        yield chunk.choices[0].delta.content or ""
 
 
 def get_daily_digest(articles: list[Article]) -> str:
@@ -44,8 +49,8 @@ def get_daily_digest(articles: list[Article]) -> str:
     headlines = "\n".join(
         f"- {a.title} ({a.source})" for a in articles[:10]
     )
-    response = client.messages.create(
-        model="claude-opus-4-6",
+    response = client.chat.completions.create(
+        model=MODEL,
         max_tokens=250,
         messages=[
             {
@@ -59,4 +64,4 @@ Headlines:
             }
         ],
     )
-    return response.content[0].text
+    return response.choices[0].message.content
